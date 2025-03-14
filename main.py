@@ -4,6 +4,9 @@ running=True
 m_procedural={'p','proced','procedural'}
 m_random={'r','ran','rand','random','rng'}
 m_reverse={'e','rev','reverse'}
+m_remember={'qr','remem','remember'}
+
+a_true={'t','true'}
 
 print('\nSquare Number X\n_______________\n')
 
@@ -26,6 +29,11 @@ def checkInside(s,array):
 while running:
     if checkInside(mode,m_random):
         number=random.randint(minimal,maximal)
+    elif checkInside(mode,m_reverse):
+        if prevnumber<=minimal:
+            prevnumber=maximal+1
+        prevnumber-=1
+        number=prevnumber
     else:
         if prevnumber>=maximal:
             prevnumber=minimal-1
@@ -38,7 +46,7 @@ while running:
     elif answer=='exit':break
     else:
         print(' [-] Wrong. Right answer is '+str(correct)+'.')
-        if error_fix=='true':
+        if checkInside(error_fix,a_true):
             prevnumber=minimal-1
 
     print('_______________________________\n')
