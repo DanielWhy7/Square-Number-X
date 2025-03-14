@@ -1,4 +1,7 @@
 import random
+
+VERSION=1.35
+
 running=True
 
 m_procedural={'p','proced','procedural'}
@@ -27,26 +30,34 @@ def checkInside(s,array):
     return False
 
 while running:
-    if checkInside(mode,m_random):
-        number=random.randint(minimal,maximal)
-    elif checkInside(mode,m_reverse):
-        if prevnumber<=minimal:
-            prevnumber=maximal+1
-        prevnumber-=1
-        number=prevnumber
-    else:
-        if prevnumber>=maximal:
-            prevnumber=minimal-1
-        prevnumber+=1
-        number=prevnumber
+    if checkInside(mode,m_remember):
+        running=False
+        while prevnumber<=maximal-1:
+            prevnumber+=1
+            number=prevnumber
 
-    correct=number**2
-    answer=input(str(number)+'x'+str(number)+': ')
-    if answer==str(correct):print(' [+] Correct.')
-    elif answer=='exit':break
+            print(str(number)+'x'+str(number)+': '+str(number**2))
     else:
-        print(' [-] Wrong. Right answer is '+str(correct)+'.')
-        if checkInside(error_fix,a_true):
-            prevnumber=minimal-1
+        if checkInside(mode,m_random):
+            number=random.randint(minimal,maximal)
+        elif checkInside(mode,m_reverse):
+            if prevnumber<=minimal:
+                prevnumber=maximal+1
+            prevnumber-=1
+            number=prevnumber
+        else:
+            if prevnumber>=maximal:
+                prevnumber=minimal-1
+            prevnumber+=1
+            number=prevnumber
 
-    print('_______________________________\n')
+        correct=number**2
+        answer=input(str(number)+'x'+str(number)+': ')
+        if answer==str(correct):print(' [+] Correct.')
+        elif answer=='exit':break
+        else:
+            print(' [-] Wrong. Right answer is '+str(correct)+'.')
+            if checkInside(error_fix,a_true):
+                prevnumber=minimal-1
+
+        print('_______________________________\n')
