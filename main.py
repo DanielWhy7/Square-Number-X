@@ -18,10 +18,8 @@ design_line='_______________________________'
 
 mistake_count=0
 
-def checkInside(s,array):
-    for x in array:
-        if x==s:return True
-    return False
+def checkInside(s, array):
+    return s in array
 
 def exitCheck(text):
     if checkInside(text,a_exit):exit()
@@ -31,7 +29,7 @@ def isNumber(text):
     if text.isnumeric():return int(text)
     return 0
 
-print('\nSquare Number X | Version: '+str(VERSION)+'\n'+design_line+'\n')
+print(f'\nSquare Number X | Version: {VERSION}\n{design_line}\n')
 
 minimal=isNumber(exitCheck(input('Enter minimum: ')))
 maximal=isNumber(exitCheck(input('Enter maximum: ')))
