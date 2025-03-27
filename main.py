@@ -37,7 +37,7 @@ maximal=isNumber(exitCheck(input('Enter maximum: ')))
 print()
 
 mode=exitCheck(input('Procedural | Random | Reverse | Remember\nMode: ')).lower()
-if checkInside(mode,m_random):skip_number_with_zero=exitCheck(input('\nSkip numbers that ends at 0\nEnable: '))
+if checkInside(mode,m_random):skip_number_with_zero=exitCheck(input('\nSkip numbers that ends at 0\nEnable: '));error_fix=False
 elif not checkInside(mode,m_remember):error_fix=exitCheck(input('\nError corrector\nEnable: ')).lower()
 else:error_fix=False
 
