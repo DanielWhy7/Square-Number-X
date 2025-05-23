@@ -1,77 +1,85 @@
-import random
+from random import randint as rint
 
-VERSION=1.39
+VERSION="1.4.0"
 
-running=True
+run=True
+
 #TODO: Add language support
-m_procedural={'p','proced','procedural'}
-m_random={'r','ran','rand','random','rng'}
-m_reverse={'e','rev','reverse'}
-m_remember={'qr','remem','remember'}
+m_proc=['p','proced','procedural']
+m_rand=['r','ran','rand','random','rng']
+m_reve=['e','rev','reverse']
+m_reme=['qr','remem','remember']
 
-a_true={'t','true','1','y','yes','yeah'}
+m_true=['t','true','1','y','yes','yeah']
 
-a_exit={'exit','break','ctrl+c','escape','ctrlc'}
-#a_menu={'menu','configuration','home'}
+m_exit=['q','exit','break','ctrl+c','escape','ctrlc']
+m_menu=['menu','configuration','home']
+m_errr=['er','error','mistake']
 
-design_line='_______________________________'
+dline='_______________________________'
 
-mistake_count=0
+k=0
 
-def checkInside(s, array):
+def chek(s, array):
     return s in array
 
-def exitCheck(text):
-    if checkInside(text,a_exit):exit()
+def chex(text):
+    if chek(text,m_exit):exit()
     return text
 
-def isNumber(text):
+def is_n(text):
     if text.isnumeric():return int(text)
-    return 0
+    return 11
 
-print(f'\nSquare Number X | Version: {VERSION}\n{design_line}\n')
+print(f'\nSquare Number X | Version: {VERSION}\n{dline}\n')
 
-minimal=isNumber(exitCheck(input('Enter minimum: ')))
-maximal=isNumber(exitCheck(input('Enter maximum: ')))
+while True:
+    minimal=is_n(chex(input('Enter minimum: ')))
+    maximal=is_n(chex(input('Enter maximum: ')))
 
-print()
+    mode=chex(input('\nProcedural | Random | Reverse | Remember\nMode: ')).lower()
+    if chek(mode,m_rand):skip_number_with_zero=chex(input('\nSkip numbers that ends at 0\nEnable: '));error_fix=False
+    elif not chek(mode,m_reme):error_fix=chex(input('\nError corrector\nEnable: ')).lower()
+    else:error_fix=False
 
-mode=exitCheck(input('Procedural | Random | Reverse | Remember\nMode: ')).lower()
-if checkInside(mode,m_random):skip_number_with_zero=exitCheck(input('\nSkip numbers that ends at 0\nEnable: '));error_fix=False
-elif not checkInside(mode,m_remember):error_fix=exitCheck(input('\nError corrector\nEnable: ')).lower()
-else:error_fix=False
+    print(dline+'\n')
 
-print(design_line+'\n')
+    prevnumber=minimal-1
 
-prevnumber=minimal-1
+    if chek(mode,m_reme):
+        while prevnumber<=maximal-1:
+            prevnumber+=1
+            number=prevnumber
 
-if checkInside(mode,m_remember):
-    while prevnumber<=maximal-1:
-        prevnumber+=1
-        number=prevnumber
+            print(str(number)+'x'+str(number)+': '+str(number**2))
+    else:
+        while run:
+                if chek(mode,m_rand):
+                    number=rint(minimal,maximal)
+                elif chek(mode,m_reve):
+                    if prevnumber<=minimal:
+                        prevnumber=maximal+1
+                    prevnumber-=1
+                    number=prevnumber
+                else:
+                    if prevnumber>=maximal:
+                        prevnumber=minimal-1
+                    prevnumber+=1
+                    number=prevnumber
 
-        print(str(number)+'x'+str(number)+': '+str(number**2))
-else:
-    while running:
-            if checkInside(mode,m_random):
-                number=random.randint(minimal,maximal)
-            elif checkInside(mode,m_reverse):
-                if prevnumber<=minimal:
-                    prevnumber=maximal+1
-                prevnumber-=1
-                number=prevnumber
-            else:
-                if prevnumber>=maximal:
-                    prevnumber=minimal-1
-                prevnumber+=1
-                number=prevnumber
+                correct=number**2
+                answer=chex(input(str(number)+'x'+str(number)+': '))
+                if answer==str(correct):print(' [+] Correct.')
+                elif chek(answer,m_menu):
+                    print(' [*] Mode changed\n')
+                    break
+                elif chek(answer,m_errr):
+                    print(f' [*] Mistakes: {k}')
+                    prevnumber=number-1#IDK
+                else:
+                    k+=1
+                    print(' [-] Wrong. Right answer is '+str(correct))
+                    if chek(error_fix,m_true):
+                        prevnumber=minimal-1
 
-            correct=number**2
-            answer=exitCheck(input(str(number)+'x'+str(number)+': '))
-            if answer==str(correct):print(' [+] Correct.')
-            else:
-                print(' [-] Wrong. Right answer is '+str(correct)+'.')
-                if checkInside(error_fix,a_true):
-                    prevnumber=minimal-1
-
-            print(design_line+'\n')
+                print(dline+'\n')
