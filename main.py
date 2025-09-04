@@ -12,8 +12,8 @@ m_reme=['qr','remem','remember']
 
 m_true=['t','true','1','y','yes','yeah']
 
-m_exit=['q','exit','break','ctrl+c','escape','ctrlc']
-m_menu=['menu','configuration','home']
+m_exit=['q','^c','exit','break','ctrl+c','escape','ctrlc']
+m_menu=['menu','configuration','home','m']
 m_errr=['er','error','mistake']
 
 dline='_______________________________'
